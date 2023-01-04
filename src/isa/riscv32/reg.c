@@ -16,6 +16,7 @@
 #include <isa.h>
 #include "local-include/reg.h"
 
+
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
@@ -25,9 +26,29 @@ const char *regs[] = {
 
 void isa_reg_display() 
 {
-
+printf("register info: \n");
+int i;
+  for (i = 0; i < 32; i++) 
+  {
+    printf("%4s 0x%08X", regs[i], cpu.gpr[i]); 
+    i%8==7?printf("\n"):printf(",");
+  }
+   printf("%4s 0x%08x\n", "pc", cpu.pc);
 }
 
+
 word_t isa_reg_str2val(const char *s, bool *success) {
+  int i; 
+  if (strcmp(s, "pc") == 0) {
+      *success = true;
+      return cpu.pc;
+  }
+  for (i = 0; i < 32; ++i) {
+    if (strcmp(s, regs[i]) == 0) {
+      *success = true;
+      return cpu.gpr[i];
+    }
+  }
+  *success = false;
   return 0;
 }

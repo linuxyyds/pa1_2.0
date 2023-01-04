@@ -99,10 +99,12 @@ static int cmd_d(char* args) {
 	return 0;
 }
 static int cmd_q(char *args) {
-  return 0;
+  return -1;
 }
+
+
 static int cmd_info(char *args) {
-  char *arg=strtok(NULL," ");  
+   char *arg=strtok(NULL," ");  
     if(strcmp(arg,"r") == 0){  
        isa_reg_display();
     }  
@@ -110,6 +112,7 @@ static int cmd_info(char *args) {
 		print_w();
 	}
     return 0;  
+   
 }
 
 static int cmd_x(char *args){
